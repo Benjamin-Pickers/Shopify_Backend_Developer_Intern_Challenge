@@ -33,6 +33,16 @@
         </table>
       </div>
 
+      <div class="justify-content-center row no-gutters">
+        <form action="{% url 'shop:ProductToExcel'%}" method="post">
+          <div class="d-inline-flex flex-column">
+            {% csrf_token %}
+
+              <input type="submit" name="Download" value="Export To Excel Sheet">
+          </div>
+        </form>
+      </div>
+
   {% else %}
     <p> No product exists right now. Click the 'Add Product' tab to enter in product </p>
   {% endif %}

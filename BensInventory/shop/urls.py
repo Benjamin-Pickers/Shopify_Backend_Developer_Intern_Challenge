@@ -5,6 +5,7 @@ app_name = 'shop'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('ProductToExcel/', views.ProductToExcel, name='ProductToExcel'),
     path('AddProduct/', views.AddProduct, name='AddProduct'),
     path('RemoveProduct/', views.RemoveProduct, name='RemoveProduct'),
     path('FindProduct/', views.FindProduct, name='FindProduct'),

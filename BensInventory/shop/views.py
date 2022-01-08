@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.template import loader
-
+from django.db import connection
+import pandas as pd
+from datetime import date
 from .models import Product
 
 #Home Page
@@ -12,6 +14,21 @@ def index(request):
 
     if all_products:
         return render(request, 'shop/index.html', {'all_products':all_products})
+
+    return render(request, 'shop/index.html')
+
+def ProductToExcel(request):
+
+    query = str(Product.objects.all().query)
+    df = pd.read_sql_query(query, connection)
+    today = str(date.today())
+
+    df.to_excel(r'./ProductInventory.xlsx', index=False)
+
+    with open(r'./ProductInventory.xlsx', 'rb') as fh:
+        response = HttpResponse(fh.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = 'attachment; filename=ProductInventory-'+today+'.xlsx'
+    return response
 
     return render(request, 'shop/index.html')
 
