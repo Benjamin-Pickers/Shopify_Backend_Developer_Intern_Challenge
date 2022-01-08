@@ -2,6 +2,39 @@
 
 {% block title %} {{'Home'}} {% endblock title %}
 
+{% block css %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'shop/body.css'%}">
+{% endblock %}
+
+
 {% block content %}
-    <p>home page</p>
+
+  {% if all_products %}
+      <h4 id=header>All Products</h4>
+      <div class="queryTable justify-content-center row no-gutters">
+        <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th>Product Name</th>
+              <th>Colour</th>
+              <th>Price</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          {% for product in all_products %}
+            <tr>
+              <th>{{product.productname}}</th>
+              <th>{{product.colour}}</th>
+              <th>{{product.price}}</th>
+              <th>{{product.stock}}</th>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+  {% else %}
+    <p> No product exists right now. Click the 'Add Product' tab to enter in product </p>
+  {% endif %}
+
 {% endblock content %}

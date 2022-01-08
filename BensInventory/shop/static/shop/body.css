@@ -47,13 +47,9 @@ form
 table
 {
   background-color: white;
-  border: 1px solid black;
 }
 
-tr, td, th
-{
-  border: 1px solid black;
-}
+
 
 .queryTable
 {

@@ -1,0 +1,68 @@
+{% extends 'shop/base.html'%}
+
+{% block title %} {{'Update Product'}} {% endblock title %}
+
+{% block css %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'shop/body.css'%}">
+{% endblock %}
+
+
+{% block content %}
+  <div>
+    <h2 id="header"> Update Product </h2>
+    <p id="descriptionParagraph">
+        Update a product in inventory
+    </p>
+  </div>
+
+  <div class="justify-content-center row no-gutters">
+    <form action="{% url 'shop:FindProduct'%}" method="post">
+      <div class="d-inline-flex flex-column">
+        {% csrf_token %}
+
+        <div class="inline-flex inputBox">
+          <label for="name">Product Name: </label>
+          <input id="name" type="text" name="name" maxlength="40">
+        </div>
+
+        <br>
+          <input type="submit" name="updateProduct" value="Find">
+      </div>
+    </form>
+  </div>
+
+  {% if product %}
+    <div class="justify-content-center row no-gutters">
+      <form action="{% url 'shop:UpdateProduct'%}" method="post">
+        <div class="d-inline-flex flex-column">
+          {% csrf_token %}
+
+          <div class="inline-flex inputBox">
+            <h4 id="header"> {{product.productname}} </h4>
+            <input id="name" type="text" name="name" maxlength="40" value="{{ product.productname }}" hidden>
+          </div>
+
+          <div class="inline-flex inputBox">
+            <label for="colour">Colour: </label>
+            <input id="colour" type="text" name="colour" maxlength="20" value="{{ product.colour }}">
+          </div>
+
+          <div class="inline-flex inputBox">
+            <label for="price">Price (CAD): </label>
+            <input id="price" type="number" name="price" step="any" value="{{ product.price }}">
+          </div>
+
+          <div class="inline-flex inputBox">
+            <label for="stock">Stock: </label>
+            <input id="stock" type="number" name="stock" step="1" value="{{ product.stock }}">
+          </div>
+
+          <br>
+          <input type="submit" name="updateProduct" value="Update">
+        </div>
+      </form>
+    </div>
+  {% endif %}
+
+{% endblock content %}
