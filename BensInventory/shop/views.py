@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import date
 from .models import Product
 
-#Home Page
+#Home Page that lists all products if products exist
 def index(request):
 
     all_products = Product.objects.all()
@@ -17,6 +17,7 @@ def index(request):
 
     return render(request, 'shop/index.html')
 
+#View exports all product data to an excel sheet and downloads it
 def ProductToExcel(request):
 
     query = str(Product.objects.all().query)
@@ -32,6 +33,7 @@ def ProductToExcel(request):
 
     return render(request, 'shop/index.html')
 
+#View adds a product to the database if it does not already exist
 def AddProduct(request):
 
     if request.method == 'POST':
@@ -52,6 +54,7 @@ def AddProduct(request):
 
     return render(request, 'shop/addProduct.html')
 
+#View removes product from inventory
 def RemoveProduct(request):
 
     if request.method == 'POST':
@@ -67,6 +70,7 @@ def RemoveProduct(request):
 
     return render(request, 'shop/removeProduct.html')
 
+#View find a product that needs to be updated and grbas its data
 def FindProduct(request):
 
     if request.method == 'POST':
@@ -79,6 +83,7 @@ def FindProduct(request):
             return render(request, 'shop/updateProduct.html', {'error_message':"Product Cannot be Updated Because It Does Not Exist"})
     return render(request, 'shop/updateProduct.html')
 
+#View update product
 def UpdateProduct(request):
 
     if request.method == 'POST':
